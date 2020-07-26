@@ -9,7 +9,9 @@ char player = 'X'; // переменная для ходов игрока
 
 void Draw()
 {
-    cout << "\n   Welcome to game TicTacToe!\n\n" ;
+    system("cls"); // для очистки консоли от прошлой ненужной информации
+
+    cout << "\n   Welcome to game TicTacToe!\n\n";
     //пробегаемся по элементам массива
     for (int i = 0; i < 3; i++)
     {
@@ -29,7 +31,7 @@ void Draw()
 void Input()
 {
     int a;
-    cout << "Press the number of the field";
+    cout << "Press the number of the field:\t";
     cin >> a;
 
     //после считывания хода в определенный элемент массива присваивается переменная игрока.
@@ -71,22 +73,87 @@ void TogglePlayer()
 
 }
 
+/*
+Функция для проверки на выигрышь
+*/
+
+
+char Win()
+{
+
+    //ПРОВЕРКА ДЛЯ ИГРОКА Х
+
+    //проверка для строк
+    
+    if (matrix[0][0] == 'X' && matrix[0][1] == 'X' && matrix[0][2] == 'X')
+        return 'X';
+    if (matrix[1][0] == 'X' && matrix[1][1] == 'X' && matrix[1][2] == 'X')
+        return 'X';
+    if (matrix[2][0] == 'X' && matrix[2][1] == 'X' && matrix[2][2] == 'X')
+        return 'X';
+    //проверка для столбцов
+    if (matrix[0][0] == 'X' && matrix[1][0] == 'X' && matrix[2][0] == 'X')
+        return 'X';
+    if (matrix[0][1] == 'X' && matrix[1][1] == 'X' && matrix[2][1] == 'X')
+        return 'X';
+    if (matrix[0][2] == 'X' && matrix[1][2] == 'X' && matrix[2][2] == 'X')
+        return 'X';
+    //проверка для диагоналей
+    if (matrix[0][0] == 'X' && matrix[1][2] == 'X' && matrix[2][3] == 'X')
+        return 'X';
+    if (matrix[0][2] == 'X' && matrix[1][2] == 'X' && matrix[2][0] == 'X')
+        return 'X';
+
+
+
+    //ПРОВЕРКА ДЛЯ ИГРОКА O
+
+     //проверка для строк
+    if (matrix[0][0] == 'O' && matrix[0][1] == 'O' && matrix[0][2] == 'O')
+        return 'O';
+    if (matrix[1][0] == 'O' && matrix[1][1] == 'O' && matrix[1][2] == 'O')
+        return 'O';
+    if (matrix[2][0] == 'O' && matrix[2][1] == 'O' && matrix[2][2] == 'O')
+        return 'O';
+    //проверка для столбцов
+    if (matrix[0][0] == 'O' && matrix[1][0] == 'O' && matrix[2][0] == 'O')
+        return 'O';
+    if (matrix[0][1] == 'O' && matrix[1][1] == 'O' && matrix[2][1] == 'O')
+        return 'O';
+    if (matrix[0][2] == 'O' && matrix[1][2] == 'O' && matrix[2][2] == 'O')
+        return 'O';
+    //проверка для диагоналей
+    if (matrix[0][0] == 'O' && matrix[1][2] == 'O' && matrix[2][3] == 'O')
+        return 'O';
+    if (matrix[0][2] == 'O' && matrix[1][2] == 'O' && matrix[2][0] == 'O')
+        return 'O';
+
+    return '/';
+}
+
+
 
 int main()
 {
 
     //Делаем бесконечный цикл
     //Фызываем функции ввода хода, отрисовки массива (доски) и смену игрока
+    Draw();
     while (1)
     {
-        
-        Draw();
         Input();
+        Draw();   
+        if (Win() == 'X')
+        {
+            cout << "\tX wins!\n\n";
+            break;
+        }
+        else if (Win() == 'O')
+        {
+            cout << "\tO wins!\n\n";
+            break;
+        }
         TogglePlayer();
     }
-
-
-    Draw();
-
     return 0;
 }
