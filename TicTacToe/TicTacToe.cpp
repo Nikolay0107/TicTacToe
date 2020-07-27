@@ -1,8 +1,54 @@
 
 #include <iostream>
+#include <Windows.h> // подключаем директиву для цвета
 using namespace std;
+HANDLE colour = GetStdHandle(STD_OUTPUT_HANDLE); // подключаем для цвета
+
 char matrix[3][3] = { '1','2','3','4','5','6','7','8','9' }; // инициализируем глобальный char массив 3-3, для доски
 char player = 'X'; // переменная для ходов игрока
+
+
+// Функция для смены цвета текста в консоли
+
+void SetColor(int ForgC)
+{
+    WORD wColor;
+
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    //We use csbi for the wAttributes word.
+    if (GetConsoleScreenBufferInfo(hStdOut, &csbi))
+    {
+        //Mask out all but the background attribute, and add in the forgournd     color
+        wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+        SetConsoleTextAttribute(hStdOut, wColor);
+    }
+    return;
+
+    /*
+    Name         | Value
+                |
+    Black        |   0
+    Blue         |   1
+    Green        |   2
+    Cyan         |   3
+    Red          |   4
+    Magenta      |   5
+    Brown        |   6
+    Light Gray   |   7
+    Dark Gray    |   8
+    Light Blue   |   9
+    Light Green  |   10
+    Light Cyan   |   11
+    Light Red    |   12
+    Light Magenta|   13
+    Yellow       |   14
+    White        |   15
+    */
+
+}
+
 
 
 // функция для отрисовки массива matrix
@@ -10,8 +56,9 @@ char player = 'X'; // переменная для ходов игрока
 void Draw()
 {
     system("cls"); // для очистки консоли от прошлой ненужной информации
-
+    SetColor(13);
     cout << "\n   Welcome to game TicTacToe!\n\n";
+    SetColor(11);
     //пробегаемся по элементам массива
     for (int i = 0; i < 3; i++)
     {
@@ -31,7 +78,9 @@ void Draw()
 void Input()
 {
     int a;
-    cout << "Press the number of the field:\t";
+    SetColor(14);
+    cout << "  Press the number of the field:\t";
+    SetColor(11);
     cin >> a;
 
     //после считывания хода в определенный элемент массива присваивается переменная игрока.
@@ -137,22 +186,7 @@ char Win()
 
 int main()
 {
-    /*
-    Меняем цвет в консоли!
-
-    0 = Черный  8 = Серый
-    1 = Синий   9 = Светло-синий
-    2 = Зеленый A = Светло-зеленый
-    3 = Голубой B = Светло-голубой
-    4 = Красный C = Светло-красный
-    5 = Лиловый D = Светло-лиловый
-    6 = Желтый  E = Светло-желтый
-    7 = Белый   F = Ярко-белый
-
-    */
-
-    system("color 03");
-
+ 
     //Делаем бесконечный цикл
     //Фызываем функции ввода хода, отрисовки массива (доски) и смену игрока
     Draw();
@@ -162,12 +196,16 @@ int main()
         Draw();   
         if (Win() == 'X')
         {
+            SetColor(10); // для цвета текста при выигрыше
             cout << "\tX wins!\n\n";
+            SetColor(14);
             break;
         }
         else if (Win() == 'O')
         {
+            SetColor(10); // для цвета текста при выигрыше
             cout << "\tO wins!\n\n";
+            SetColor(14);
             break;
         }
         TogglePlayer();
