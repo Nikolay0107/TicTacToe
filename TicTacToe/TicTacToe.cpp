@@ -99,10 +99,13 @@ char Win()
     if (matrix[0][2] == 'X' && matrix[1][2] == 'X' && matrix[2][2] == 'X')
         return 'X';
     //проверка для диагоналей
-    if (matrix[0][0] == 'X' && matrix[1][2] == 'X' && matrix[2][3] == 'X')
+    if (matrix[0][0] == 'X' && matrix[1][1] == 'X' && matrix[2][2] == 'X')
         return 'X';
-    if (matrix[0][2] == 'X' && matrix[1][2] == 'X' && matrix[2][0] == 'X')
+    if (matrix[0][2] == 'X' && matrix[1][1] == 'X' && matrix[2][0] == 'X')
         return 'X';
+
+
+ 
 
 
 
@@ -123,14 +126,13 @@ char Win()
     if (matrix[0][2] == 'O' && matrix[1][2] == 'O' && matrix[2][2] == 'O')
         return 'O';
     //проверка для диагоналей
-    if (matrix[0][0] == 'O' && matrix[1][2] == 'O' && matrix[2][3] == 'O')
+    if (matrix[0][0] == 'O' && matrix[1][1] == 'O' && matrix[2][2] == 'O')
         return 'O';
-    if (matrix[0][2] == 'O' && matrix[1][2] == 'O' && matrix[2][0] == 'O')
+    if (matrix[0][2] == 'O' && matrix[1][1] == 'O' && matrix[2][0] == 'O')
         return 'O';
 
     return '/';
 }
-
 
 
 int main()
@@ -149,8 +151,8 @@ int main()
 
     */
 
-
     system("color 03");
+
     //Делаем бесконечный цикл
     //Фызываем функции ввода хода, отрисовки массива (доски) и смену игрока
     Draw();
